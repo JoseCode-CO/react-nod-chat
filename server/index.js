@@ -6,11 +6,20 @@ import cors from 'cors'
 
 const app = express();
 const server = http.createServer(app)
-const io = new SocketServer(server)
+const io = new SocketServer(server, {
+    //Para que se pueda conectar con cualquier servidor
+    cors:{
+        origin: '*'
+    }
+})
 
 app.use(cors())
 app.use(morgan("dev"))
 
-app.listen(4000, () => {
+io.on('connection', (socket) => {
+    console.log(socket.id)
+})
+
+server.listen(4000, () => {
     console.log("Corriendo sin problemas")
 })
