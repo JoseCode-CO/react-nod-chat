@@ -17,7 +17,11 @@ app.use(cors())
 app.use(morgan("dev"))
 
 io.on('connection', (socket) => {
-    console.log(socket.id)
+
+    socket.on('message', (message) => {
+        socket.broadcast.emit('message', message)
+        console.log(message)
+    })
 })
 
 server.listen(4000, () => {
