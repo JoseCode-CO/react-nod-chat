@@ -1,9 +1,16 @@
 import  express  from "express";
 import morgan from "morgan";
-const app = express();
+import {Server as SocketServer} from 'socket.io';
+import http from 'http'
+import cors from 'cors'
 
+const app = express();
+const server = http.createServer(app)
+const io = new SocketServer(server)
+
+app.use(cors())
 app.use(morgan("dev"))
 
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log("Corriendo sin problemas")
 })
