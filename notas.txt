@@ -3,3 +3,5 @@ npx create-react-app client: crear proyecto
 npm start dentro de la carpeta client para ejecutar el proyecto react
 
 npm i socket.io-client: instalarlo en react 
+
+npm install -D tailwindcss postcss autoprefixer: para instalar tailwind

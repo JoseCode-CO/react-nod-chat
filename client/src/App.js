@@ -1,6 +1,6 @@
 import './App.css';
 import io from 'socket.io-client'
-import{useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 
 //Creamos la conexion con el servidor del backend
 const socket = io('http://localhost:4000')
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     const receiveMessage = (message) => {
-     setMessages([message, ...messages])
+      setMessages([message, ...messages])
     };
     socket.on('message', receiveMessage)
 
@@ -37,18 +37,23 @@ function App() {
   }, [messages])
 
   return (
-    <div className="App">
-     <h1>Hola mundo</h1>
-     <form onSubmit={handleSubmit}>
-       <input type="text" onChange={e => setMessage(e.target.value)} value={message}/>
-       <button>send</button>
-     </form>
+    <div className="h-screen bg-zinc-800 text-white flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="bg-zinc-900 p-10">
+        <input
+          type="text"
+          onChange={e => setMessage(e.target.value)}
+          value={message}
+          className="border-2 border-zinc-500 p-2 text-black w-full"
+        />
+        <ul className='h-80 overflow-y-auto'>
+          {messages.map((message, index) => (
+            <li key={index}  className={`my-2 p-2 table text-sm rounded-md ${message.from === "Me" ? "bg-sky-700 ml-auto" : "bg-black"}`}>
+              <p>{message.from} : {message.body}</p>
+            </li>
+          ))}
+        </ul>
+      </form>
 
-     {messages.map((message, index) => (
-      <div key={index}>
-        <p>{message.from} : {message.body}</p>
-      </div>
-     ))}
     </div>
   );
 }
